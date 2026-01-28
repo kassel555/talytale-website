@@ -61,17 +61,33 @@ export default function ContactForm() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Submit to Netlify Forms
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "contact",
+          ...formData,
+        }).toString(),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setFormData({ name: "", email: "", company: "", message: "" });
+          setIsSubmitted(false);
+        }, 5000);
+      } else {
+        // Fallback to mailto
+        window.location.href = `mailto:talytale37@gmail.com?subject=Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
+      }
+    } catch {
+      // Fallback to mailto on error
+      window.location.href = `mailto:talytale37@gmail.com?subject=Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
+    }
 
     setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    // Reset form after showing success
-    setTimeout(() => {
-      setFormData({ name: "", email: "", company: "", message: "" });
-      setIsSubmitted(false);
-    }, 5000);
   };
 
   const handleChange = (
@@ -100,7 +116,13 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-5"
+      data-netlify="true"
+      name="contact"
+    >
+      <input type="hidden" name="form-name" value="contact" />
       {/* Name */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-2">

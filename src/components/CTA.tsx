@@ -70,8 +70,17 @@ export default function CTA() {
                 ✉️
               </div>
               <h3 className="text-2xl font-bold mb-4">Send Us a Message</h3>
-              <p className="text-text-secondary mb-8">
+              <p className="text-text-secondary mb-6">
                 Prefer email? Tell us about your project and we&apos;ll get back to you within 24 hours.
+              </p>
+              <p className="text-sm text-text-secondary mb-8">
+                Or email us directly:{" "}
+                <a
+                  href="mailto:talytale37@gmail.com"
+                  className="text-accent hover:text-accent-bright transition-colors"
+                >
+                  talytale37@gmail.com
+                </a>
               </p>
 
               <ContactForm />

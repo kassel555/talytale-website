@@ -35,9 +35,15 @@ export default function Footer() {
           <h3 className="text-3xl font-extrabold gradient-text mb-4">
             talytale
           </h3>
-          <p className="text-text-secondary mb-6 leading-relaxed">
+          <p className="text-text-secondary mb-4 leading-relaxed">
             One partner for all your digital needs. Mobile apps, websites, and automation workflows that help your business thrive.
           </p>
+          <a
+            href="mailto:talytale37@gmail.com"
+            className="text-accent hover:text-accent-bright transition-colors"
+          >
+            talytale37@gmail.com
+          </a>
           <div className="flex gap-3">
             {socialLinks.map((social) => (
               <Link
